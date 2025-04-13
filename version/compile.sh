@@ -1,1 +1,1 @@
-javac Main.java && java Main
+kotlinc Main.kt -d out && kotlin -cp out MainKt

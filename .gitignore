@@ -1,0 +1,12 @@
+
+.idea/
+.idea/**
+
+target/
+target/**
+
+build/
+build/**
+
+version/out/
+version/out/**
