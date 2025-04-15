@@ -23,7 +23,7 @@ jobs:
     - name: Generate JavaDoc
       run: |
         mkdir -p docs
-        javadoc -d docs -sourcepath src -subpackages .
+        javadoc -d docs -sourcepath src -subpackages de
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
