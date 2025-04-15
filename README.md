@@ -25,7 +25,7 @@ To use this library in your project:
 
 3. **Add the dependency to your pom.xml**\
    The version will be displayed by the script above or can be read from the generated JAR file.
-```xml
+   ```xml
    <dependency>
        <groupId>de.paull</groupId>
        <artifactId>javaCodebase</artifactId>
