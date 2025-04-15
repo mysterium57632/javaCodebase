@@ -1,8 +1,8 @@
-package de.paull.std.output;
+package de.paull.lib.output;
 
-import de.paull.std.files.Writer;
-import de.paull.std.files.ConfigHandler;
-import de.paull.std.files.FileUtil;
+import de.paull.lib.files.Writer;
+import de.paull.lib.files.ConfigHandler;
+import de.paull.lib.files.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,7 +60,7 @@ public class Output extends OutputStream implements AutoCloseable {
             super(out, true);
             hasLB = true;
             name = "de.paull";
-            notname = "de.paull.std.output";
+            notname = "de.paull.lib.output";
         }
 
         @Override
@@ -94,6 +94,10 @@ public class Output extends OutputStream implements AutoCloseable {
             return x;
         }
 
+        /**
+         * Returns a formated Timestamp
+         * @return timestamp
+         */
         public static String timestamp() {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             String time = format.format(timestamp);

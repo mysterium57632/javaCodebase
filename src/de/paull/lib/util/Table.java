@@ -1,6 +1,6 @@
-package de.paull.std.util;
+package de.paull.lib.util;
 
-import de.paull.std.output.ANSI;
+import de.paull.lib.output.ANSI;
 
 public class Table {
 

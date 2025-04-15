@@ -1,4 +1,4 @@
-package de.paull.std.output;
+package de.paull.lib.output;
 
 import java.io.OutputStream;
 import java.io.PrintStream;

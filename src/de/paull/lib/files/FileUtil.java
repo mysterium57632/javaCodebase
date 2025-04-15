@@ -1,4 +1,4 @@
-package de.paull.std.files;
+package de.paull.lib.files;
 
 import java.io.File;
 import java.io.IOException;

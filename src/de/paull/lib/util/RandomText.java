@@ -1,4 +1,4 @@
-package de.paull.std.util;
+package de.paull.lib.util;
 
 import java.util.Random;
 

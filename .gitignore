@@ -10,3 +10,5 @@ build/**
 
 version/out/
 version/out/**
+
+javaCodebase.iml

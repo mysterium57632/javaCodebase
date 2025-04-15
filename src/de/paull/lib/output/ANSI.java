@@ -1,4 +1,4 @@
-package de.paull.std.output;
+package de.paull.lib.output;
 
 public class ANSI {
 

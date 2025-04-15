@@ -1,8 +1,8 @@
-package de.paull.std.files;
+package de.paull.lib.files;
 
-import de.paull.std.output.ANSI;
-import de.paull.std.output.Output;
-import de.paull.std.util.Table;
+import de.paull.lib.output.ANSI;
+import de.paull.lib.output.Output;
+import de.paull.lib.util.Table;
 
 import java.io.File;
 import java.io.IOException;
