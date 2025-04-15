@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 /**
  * A class which generates an SSLContext for WebServer and Socket of an JKS certificate
  */
-public class Security {
+public class SSCertificateHandler {
 
     private static SSLContext sslContext;
     private static X509Certificate certificate;
@@ -33,7 +33,7 @@ public class Security {
      * @param stream stream for the SSLCertificate File, use Reader to get Stream
      * @param pw password for the SSL certificate
      */
-    public Security(InputStream stream, String pw) {
+    public SSCertificateHandler(InputStream stream, String pw) {
         this.stream = stream;
         this.pw = pw;
         try {
@@ -56,7 +56,7 @@ public class Security {
      * @param path path for the SSLCertificate File
      * @param pw password for the SSL certificate
      */
-    public Security(String path, String pw) throws IOException {
+    public SSCertificateHandler(String path, String pw) throws IOException {
         this(Reader.readToStream(path), pw);
     }
 
