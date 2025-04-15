@@ -4,8 +4,8 @@ A collection of useful Java classes commonly needed in most Java or Kotlin proje
 
 ## 📚 Documentation
 
-Comprehensive documentation for each class is available at:\
-👉 [codebase.paull.dev](https://codebase.paull.dev/)
+Comprehensive documentation for each class is available\
+👉 [here](https://codebase.paull.dev/)
 
 ## 🚀 Getting Started
 
