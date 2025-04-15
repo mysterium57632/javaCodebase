@@ -15,13 +15,14 @@ fi
 
 echo "Found JAR: $JAR_FILE"
 
-if [[ JAR_FILE =~ -v([0-9]{4})\.jar ]]; then
+# Extract version using regex
+if [[ "$JAR_FILE" =~ -v([0-9]{4})\.jar$ ]]; then
     VERSION="${BASH_REMATCH[1]}"
 else
-    echo "No version number found in filename. Switch to $VERSION"
+    echo "No version number found in filename. Using default version $VERSION"
 fi
 
-echo "Installing v$VERSION to local Maven repo..."
+echo "Installing version $VERSION to local Maven repo..."
 
 mvn install:install-file \
   -Dfile="$JAR_FILE" \
@@ -30,4 +31,4 @@ mvn install:install-file \
   -Dversion="$VERSION" \
   -Dpackaging=jar
 
-printf("\nDone")
+echo -e "\nDone"
