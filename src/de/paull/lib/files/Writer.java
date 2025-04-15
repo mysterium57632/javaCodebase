@@ -3,20 +3,29 @@ package de.paull.lib.files;
 import java.io.*;
 import java.util.zip.DeflaterOutputStream;
 
+/**
+ * Writer class to write to files
+ */
 public class Writer {
 
     /**
-     * Schreibt in eine File einen gewissen content<br>
-     * @param append <br>
-     *               <b>true:</b> ob content hinten angehangen wird<br>
-     *               <b>false:</b> ob die Datei alles mit content überschreibt
+     *
+     * @param f file to write to
+     * @param content content which will be written
+     * @param append true for append, false for overwrite
+     * @throws IOException on error
      */
     public static void write(File f, String content, boolean append) throws IOException {
-        try (FileWriter writer = new FileWriter(f, append);) {
+        try (FileWriter writer = new FileWriter(f, append)) {
             writer.write(content);
         }
     }
 
+    /**
+     * Will compress the content and write it to the file
+     * @param content content which will be written
+     * @param file file to write to
+     */
     public static void writeCompressString(String content, File file) {
         FileUtil.createFile(file);
         try (DeflaterOutputStream dos = new DeflaterOutputStream(new FileOutputStream(file));

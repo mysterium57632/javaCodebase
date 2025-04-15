@@ -9,6 +9,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Set;
 
+/**
+ * Handles the creation, loading, and access of configuration key-value pairs from a config file.
+ * Useful for managing persistent application settings across sessions.
+ * <p>
+ * This class automatically initializes a configuration file using default values provided
+ * via the InitializeConfig interface. It reads existing config values from the file,
+ * overrides defaults where applicable, and ensures missing values are restored to defaults.
+ * Values can be retrieved using static getter methods, and the full configuration is
+ * printed in a readable table format.
+ */
 public final class ConfigHandler {
 
     private final String configFilePath;
@@ -18,7 +28,11 @@ public final class ConfigHandler {
     private static HashMap<String, String> updateConfig;
 
     /**
-     * Config File Handler
+     * Initializes the ConfigHandler
+     * @param path the path the config file will be generated of found in
+     * @param fileHeader the Header for the file
+     * @param initializeConfig an Interface in wich the HashMap with the default values will be initialized.
+     *                         The Method should contain all key-value pairs which should be saved in the config.
      */
     public ConfigHandler(String path, String fileHeader, InitializeConfig initializeConfig) {
         this.configFilePath = path;
@@ -31,9 +45,10 @@ public final class ConfigHandler {
     }
 
     /**
-     * Gibt den Inhalt zu dem Key zurück
-     * @param key Schlüssel von Config-Paar
-     * @return Value von Update Config, wenn nicht vorhanden von Default Config
+     * Returns the value for the specified key
+     * @param key key of config pair
+     * @return Value from the config file if the key-value pair and the file exist.
+     *      Otherwise, the default value defined in the initializeConfig.
      */
     public static String get(String key) {
         String value = updateConfig.get(key);
@@ -43,10 +58,11 @@ public final class ConfigHandler {
     }
 
     /**
-     * Gibt den Inhalt zu dem Key als Integer zurück
-     * @param key Schlüssel von Config-Paar
-     * @return Value von Update Config, wenn nicht vorhanden von Default Config als int
-     * Bei falschem Format wird -1 zurückgegeben
+     * Returns the value as an int for the specified key
+     * @param key key of config pair
+     * @return Value from the config file if the key-value pair and the file exist.
+     *      Otherwise, the default value defined in the initializeConfig.
+     *      If a NumberFormat exception occurs, -1 will be returned.
      */
     public static int getInteger(String key) {
         try {
@@ -57,12 +73,17 @@ public final class ConfigHandler {
         }
     }
 
+    /**
+     * Returns the default value for the given key
+     * @param key key of config pair
+     * @return the corresponding value of the key-value pair defined in the initializeConfig.
+     */
     public static String getDefault(String key) {
         return defaultConfig.get(key);
     }
 
     /**
-     * Speichert die Config Date ab
+     * Saves the config file
      */
     private void saveConfig() {
         String content = getContent();
@@ -150,6 +171,9 @@ public final class ConfigHandler {
         defaultConfig = iniConfig.iniDefaultConfig();
     }
 
+    /**
+     * The Method should contain all key-value pairs which should be saved in the config.
+     */
     public interface InitializeConfig {
         HashMap<String, String> iniDefaultConfig();
     }

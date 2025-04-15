@@ -1,5 +1,8 @@
 package de.paull.lib.output;
 
+/**
+ * ANSI Color values for colored text in console
+ */
 public class ANSI {
 
     public static final String RESET = "\u001B[0m";

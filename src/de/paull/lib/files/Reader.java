@@ -4,13 +4,14 @@ import java.io.*;
 import java.util.zip.InflaterInputStream;
 
 /**
- * Er ist schon groß, er kann schon lesen ;) <b>uWu</b>
+ * Reader class to read Files
  */
 public class Reader {
 
     /**
-     * Liest inhalt einer File als ganzen <b>String</b> ein und gibt zurück <br>
-     * Bei fehlern -> <b>IOException</b>
+     * Read contents of a String to a String
+     * @param f the file which should be read
+     * @return returns the String
      */
     public static String readRaw(File f) throws IOException {
         try (FileReader reader = new FileReader(f)) {
@@ -28,10 +29,10 @@ public class Reader {
     }
 
     /**
-     * Ließt Datei als InputStream
-     * @param path path der Datei
+     * Reads a file as InputStream
+     * @param path path of file
      * @return InputStream
-     * @throws IOException bei fehlern
+     * @throws IOException on error
      */
     public static InputStream readToStream(String path) throws IOException {
         File f = new File(path);
@@ -39,8 +40,10 @@ public class Reader {
     }
 
     /**
-     * Liest inhalt einer File als <b>String</b> aus dem <b>Resosurces Folder</b> ein und gibt zurück <br>
-     * Bei fehlern -> <b>IOException</b>
+     * Reads a file out of the resources folder to InputStream
+     * @param path path of file
+     * @return InputStream
+     * @throws IOException on error
      */
     public static InputStream readResourceToInputStream(String path) throws IOException {
         if (path.startsWith("/")) path = path.substring(1);
@@ -48,6 +51,12 @@ public class Reader {
         return f;
     }
 
+    /**
+     * Reads a from the Writer compressed File
+     * @param f path of file
+     * @return raw uncompressed String
+     * @throws IOException on error
+     */
     public static String readCompressedFile(File f) throws IOException {
         if (!f.exists()) return "";
         if (f.length() == 0) return "";
