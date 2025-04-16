@@ -5,7 +5,7 @@ A collection of useful Java classes commonly needed in most Java or Kotlin proje
 ## 📚 Documentation
 
 Comprehensive documentation for each class is available\
-👉 [here]([https://codebase.paull.dev/](https://mysterium57632.github.io/javaCodebase/))
+👉 [here](https://mysterium57632.github.io/javaCodebase/)
 
 ## 🚀 Getting Started
 
