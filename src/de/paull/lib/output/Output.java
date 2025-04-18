@@ -36,7 +36,7 @@ public class Output extends OutputStream implements AutoCloseable {
         ERR_FILE_PATH = err;
         defStream = System.out;
         fileStream = getFileStream(log);
-        newStream = new Stream(this);
+        newStream = new Stream(this, packageName);
         System.setOut(newStream);
         new ErrorStream(this);
     }
@@ -83,10 +83,10 @@ public class Output extends OutputStream implements AutoCloseable {
         private final String name; // Package name, like 'de.paull'
         private final String notname;
 
-        public Stream(OutputStream out) {
+        public Stream(OutputStream out, String name) {
             super(out, true);
             hasLB = true;
-            name = "de.paull";
+            this.name = name;
             notname = "de.paull.lib.output";
         }
 
