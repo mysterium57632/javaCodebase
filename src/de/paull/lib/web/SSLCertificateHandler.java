@@ -56,7 +56,7 @@ public class SSLCertificateHandler {
      * @param path path for the SSLCertificate File
      * @param pw password for the SSL certificate
      */
-    public SSCertificateHandler(String path, String pw) throws IOException {
+    public SSLCertificateHandler(String path, String pw) throws IOException {
         this(Reader.readToStream(path), pw);
     }
 
