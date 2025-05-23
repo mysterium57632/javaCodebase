@@ -29,11 +29,11 @@ public class SSLCertificateHandler {
     private final InputStream stream;
 
     /**
-     * Initializes the SSlContext with certificate
+     * Initializes the SSLContext with certificate
      * @param stream stream for the SSLCertificate File, use Reader to get Stream
      * @param pw password for the SSL certificate
      */
-    public SSCertificateHandler(InputStream stream, String pw) {
+    public SSLCertificateHandler(InputStream stream, String pw) {
         this.stream = stream;
         this.pw = pw;
         try {
@@ -52,7 +52,7 @@ public class SSLCertificateHandler {
     }
 
     /**
-     * Initializes the SSlContext with certificate
+     * Initializes the SSLContext with certificate
      * @param path path for the SSLCertificate File
      * @param pw password for the SSL certificate
      */
