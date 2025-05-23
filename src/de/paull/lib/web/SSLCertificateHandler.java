@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 /**
  * A class which generates an SSLContext for WebServer and Socket of an JKS certificate
  */
-public class SSCertificateHandler {
+public class SSLCertificateHandler {
 
     private static SSLContext sslContext;
     private static X509Certificate certificate;
