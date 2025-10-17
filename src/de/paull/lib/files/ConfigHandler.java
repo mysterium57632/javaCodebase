@@ -6,8 +6,7 @@ import de.paull.lib.util.Table;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Handles the creation, loading, and access of configuration key-value pairs from a config file.
@@ -24,8 +23,10 @@ public final class ConfigHandler {
     private final String configFilePath;
     private final String fileHeader;
     private final InitializeConfig iniConfig;
+    private final InitializeHiddenConfig hidConfig;
     private static HashMap<String, String> defaultConfig;
     private static HashMap<String, String> updateConfig;
+    private static List<String> hidden = new ArrayList<>();
 
     /**
      * Initializes the ConfigHandler
@@ -38,10 +39,32 @@ public final class ConfigHandler {
         this.configFilePath = path;
         this.fileHeader = fileHeader;
         this.iniConfig = initializeConfig;
+        this.hidConfig = null;
+        ini();
+    }
+
+    /**
+     * Initializes the ConfigHandler
+     * @param path the path the config file will be generated of found in
+     * @param fileHeader the Header for the file
+     * @param initializeConfig an Interface in wich the HashMap with the default values will be initialized.
+     *                         The Method should contain all key-value pairs which should be saved in the config.
+     * @param iniHidCfg same functionality as the initializeConfig,
+     *                  but the value of the fields added here will not be shown in plain text during the printConfig().
+     */
+    public ConfigHandler(String path, String fileHeader, InitializeConfig initializeConfig, InitializeHiddenConfig iniHidCfg) {
+        this.configFilePath = path;
+        this.fileHeader = fileHeader;
+        this.iniConfig = initializeConfig;
+        this.hidConfig = iniHidCfg;
+        ini();
+    }
+
+    private void ini() {
         iniDefaultConfig();
+        iniHiddenFields();
         iniUpdateConfig();
         saveConfig();
-        printConfig();
     }
 
     /**
@@ -83,6 +106,29 @@ public final class ConfigHandler {
     }
 
     /**
+     * Gibt alle Config-Daten in einer Tabelle aus.
+     * Wenn keine manuelle änderung vorgenommen wurde,
+     * wird der Wert aus defaultConfig genommen
+     */
+    public static void printConfig() {
+        Set<String> keySet = defaultConfig.keySet();
+        String[] keys = keySet.toArray(new String[defaultConfig.size()]);
+        String[][] table = new String[keys.length][2];
+        for (int i = 0; i < keys.length; i++) {
+            String value = updateConfig.get(keys[i]);
+            if (value == null) value = defaultConfig.get(keys[i]);
+            table[i][0] = keys[i];
+            table[i][1] = value;
+            if (!hidden.contains(keys[i])) continue;
+            String v = "";
+            while (v.length() < value.length()) v += "*";
+            table[i][1] = v;
+        }
+        System.out.println(Table.convert(
+                table, ANSI.BLUE + Output.Stream.timestamp() + ":" + ANSI.RESET + " Config Data:") + "\n");
+    }
+
+    /**
      * Saves the config file
      */
     private void saveConfig() {
@@ -113,25 +159,6 @@ public final class ConfigHandler {
     }
 
     /**
-     * Gibt alle Config-Daten in einer Tabelle aus.
-     * Wenn keine manuelle änderung vorgenommen wurde,
-     * wird der Wert aus defaultConfig genommen
-     */
-    private void printConfig() {
-        Set<String> keySet = defaultConfig.keySet();
-        String[] keys = keySet.toArray(new String[defaultConfig.size()]);
-        String[][] table = new String[keys.length][2];
-        for (int i = 0; i < keys.length; i++) {
-            String value = updateConfig.get(keys[i]);
-            if (value == null) value = defaultConfig.get(keys[i]);
-            table[i][0] = keys[i];
-            table[i][1] = value;
-        }
-        System.out.println(Table.convert(
-                table, ANSI.BLUE + Output.Stream.timestamp() + ":" + ANSI.RESET + " Config Data:") + "\n");
-    }
-
-    /**
      * Ließt Inhalt aus der Config-File ein,
      * wenn valide, dann wird zur liste hinzugefügt
      */
@@ -143,7 +170,7 @@ public final class ConfigHandler {
         String content;
         try {
             content = Reader.readRaw(f);
-            if (content.endsWith("\uFFFF")) // Wierdes Zeichen am Ende entfernen
+            if (content.endsWith("\uFFFF")) // Weirdes Zeichen am Ende entfernen
                 content = content.substring(0, content.length()-1);
         } catch (IOException e) {
             e.printStackTrace();
@@ -171,10 +198,26 @@ public final class ConfigHandler {
         defaultConfig = iniConfig.iniDefaultConfig();
     }
 
+    private void iniHiddenFields() {
+        if (hidConfig == null) return;
+        HashMap<String, String> map = hidConfig.iniHiddenFields();
+        map.entrySet().forEach(e -> {
+            defaultConfig.put(e.getKey(), e.getValue());
+            hidden.add(e.getKey());
+        });
+    }
+
     /**
      * The Method should contain all key-value pairs which should be saved in the config.
      */
     public interface InitializeConfig {
         HashMap<String, String> iniDefaultConfig();
+    }
+
+    /**
+     * The Method should contain all key-value pairs which should be saved in the config but without showing the values' content inside of the print function. The other functionality remain the same.
+     */
+    public interface InitializeHiddenConfig {
+        HashMap<String, String> iniHiddenFields();
     }
 }
