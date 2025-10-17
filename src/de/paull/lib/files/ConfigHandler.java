@@ -200,7 +200,7 @@ public final class ConfigHandler {
 
     private void iniHiddenFields() {
         if (hidConfig == null) return;
-        HashMap<String, String> map = hidConfig.iniHiddenFields();
+        HashMap<String, String> map = hidConfig.iniHiddenConfig();
         map.entrySet().forEach(e -> {
             defaultConfig.put(e.getKey(), e.getValue());
             hidden.add(e.getKey());
@@ -218,6 +218,6 @@ public final class ConfigHandler {
      * The Method should contain all key-value pairs which should be saved in the config but without showing the values' content inside of the print function. The other functionality remain the same.
      */
     public interface InitializeHiddenConfig {
-        HashMap<String, String> iniHiddenFields();
+        HashMap<String, String> iniHiddenConfig();
     }
 }
