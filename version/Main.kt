@@ -11,7 +11,7 @@ fun main() {
 
     removeOld()
 
-    val old = File("../codebase.jar")
+    val old = File("../target/codebase.jar")
     val new = File("../codebase-v$num.jar")
     old.renameTo(new)
 
